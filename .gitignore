@@ -3,3 +3,6 @@ dist
 dist-test
 .DS_Store
 .idea
+.env
+.npmrc
+*.tgz

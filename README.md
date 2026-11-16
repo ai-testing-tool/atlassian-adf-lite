@@ -1,4 +1,4 @@
-# atlassian-adf-lite
+# @ai-testing-tool/atlassian-adf-lite
 
 Zero-dependency TypeScript toolkit for the [Atlassian Document Format](https://developer.atlassian.com/cloud/jira/platform/apis/document/structure/) — the rich-text JSON used by Jira Cloud (REST v3 comments, descriptions, textarea fields) and Confluence.
 
@@ -8,19 +8,27 @@ Zero-dependency TypeScript toolkit for the [Atlassian Document Format](https://d
 - **Converters**: `toHtml` (safe, escaped), `toMarkdown` (GFM), `toPlainText`, `fromPlainText` / `plainTextToAdf`, `commentTextToAdf`
 - **Traversal**: `walk`, `find`, `findAll`, immutable `map`
 
-## Install & build
+## Install
+
+```bash
+npm install @ai-testing-tool/atlassian-adf-lite
+```
+
+## Build & test (contributors)
 
 ```bash
 npm install
 npm run build   # → dist/esm + dist/cjs (dual package)
 npm test
+npm run release:dry
+npm run release   # requires NPM_TOKEN in .env
 ```
 
 ## Build a document
 
 ```ts
 import { doc, h2, p, strong, em, link, mention, status, bulletList, listItem,
-         orderedList, codeBlock, panel, tableFrom, expand } from 'atlassian-adf-lite';
+         orderedList, codeBlock, panel, tableFrom, expand } from '@ai-testing-tool/atlassian-adf-lite';
 
 const body = doc(
   h2('Release 2.4'),
@@ -46,7 +54,7 @@ Strings are accepted anywhere inline content or a paragraph is expected. Mark he
 ## Validate untrusted ADF
 
 ```ts
-import { validate, assertValid, isAdfDoc } from 'atlassian-adf-lite';
+import { validate, assertValid, isAdfDoc } from '@ai-testing-tool/atlassian-adf-lite';
 
 const { valid, errors } = validate(json);
 // errors: [{ path: 'content[2].content[0].marks[1]', message: 'code mark can only be combined with link (found strong)' }]
@@ -62,7 +70,7 @@ Checks include: allowed children per node, required/min/max content, `listItem` 
 ## Convert to HTML and Markdown
 
 ```ts
-import { toHtml, toMarkdown, DEFAULT_CSS } from 'atlassian-adf-lite';
+import { toHtml, toMarkdown, DEFAULT_CSS } from '@ai-testing-tool/atlassian-adf-lite';
 
 const html = toHtml(issue.fields.description, {
   mention: (m) => `@${users[m.attrs.id]}`,          // resolve account IDs
@@ -81,7 +89,7 @@ const md = toMarkdown(issue.fields.description);
 ## Read / transform
 
 ```ts
-import { toPlainText, toMarkdown, fromPlainText, findAll, map } from 'atlassian-adf-lite';
+import { toPlainText, toMarkdown, fromPlainText, findAll, map } from '@ai-testing-tool/atlassian-adf-lite';
 
 toPlainText(issue.fields.description);
 fromPlainText('line 1\nline 2\n\nnext paragraph');   // hardBreaks + paragraphs (mode: 'blocks')

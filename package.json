@@ -1,6 +1,6 @@
 {
-  "name": "atlassian-adf-lite",
-  "version": "0.1.1",
+  "name": "@ai-testing-tool/atlassian-adf-lite",
+  "version": "0.1.3",
   "description": "Typed builders, validator and serializers for the Atlassian Document Format (ADF)",
   "license": "MIT",
   "type": "module",
@@ -21,8 +21,30 @@
   "scripts": {
     "build": "tsc -p tsconfig.json && tsc -p tsconfig.cjs.json && printf '%s\\n' '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
     "test": "tsc -p tsconfig.test.json && node --test dist-test/test/*.test.js",
-    "prepublishOnly": "npm run build && npm test"
+    "prepublishOnly": "npm run build && npm test",
+    "release": "sh scripts/publish.sh",
+    "release:dry": "DRY_RUN=true sh scripts/publish.sh"
   },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ai-testing-tool/atlassian-adf-lite.git"
+  },
+  "homepage": "https://github.com/ai-testing-tool/atlassian-adf-lite#readme",
+  "bugs": {
+    "url": "https://github.com/ai-testing-tool/atlassian-adf-lite/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "atlassian",
+    "adf",
+    "jira",
+    "confluence"
+  ],
   "devDependencies": {
     "@types/node": "^20.19.43",
     "typescript": "5.4"
